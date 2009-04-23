@@ -19,7 +19,7 @@ setup(
         'gocept.lxml',
         'gocept.runner',
         'zc.queue',
-        'zeit.cms',
+        'zeit.cms>=1.19',
         'zope.annotation',
         'zope.app.appsetup',
         'zope.app.locking',
