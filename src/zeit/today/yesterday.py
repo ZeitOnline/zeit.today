@@ -2,20 +2,18 @@
 # See also LICENSE.txt
 """Aggregate figures from yesterday with the days before."""
 
-import logging
-
 import gocept.runner
+import logging
 import zc.queue
+import zeit.cms.content.dav
+import zeit.cms.interfaces
+import zeit.today.interfaces
+import zeit.today.storage
 import zope.annotation.interfaces
 import zope.app.appsetup.product
 import zope.app.locking.interfaces
 import zope.component
 import zope.interface
-
-import zeit.cms.interfaces
-import zeit.cms.content.dav
-import zeit.today.interfaces
-import zeit.today.storage
 
 
 log = logging.getLogger(__name__)
