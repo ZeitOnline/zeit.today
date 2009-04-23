@@ -1,0 +1,7 @@
+zeit.today changes
+==================
+
+1.19 (unreleased)
+-----------------
+
+- extracted from zeit.cms
