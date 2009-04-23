@@ -70,27 +70,27 @@ class UpdateLifetimecounters(object):
     def process_one(self):
         unique_id, count_date, count = self.queue.pull()
         __traceback_info__ = (unique_id,)
-        try:
-            content = self.repository.getContent(unique_id)
-        except (KeyError, ValueError):
+        content = zeit.cms.interfaces.ICMSContent(unique_id, None)
+        if content is None:
             log.warning("Could not find %s" % unique_id)
+            return
+
+        lifetime = zeit.today.interfaces.ILifeTimeCounter(content)
+
+        if (lifetime.last_count is not None
+            and lifetime.last_count >= count_date):
+            # Already counted
             return
 
         lockable = zope.app.locking.interfaces.ILockable(content)
         try:
-            lockable.lock(timeout=10)
+            lockable.lock(timeout=60)
         except zope.app.locking.interfaces.LockingError:
             log.warning("Could not update %s because it is locked." %
                         unique_id)
             return
 
         try:
-            lifetime = zeit.today.interfaces.ILifeTimeCounter(content)
-
-            if (lifetime.last_count is not None
-                and lifetime.last_count >= count_date):
-                # Already counted
-                return
             if lifetime.first_count is None:
                 lifetime.first_count = count_date
                 lifetime.total_hits = count

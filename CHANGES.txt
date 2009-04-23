@@ -4,4 +4,8 @@ zeit.today changes
 1.19 (unreleased)
 -----------------
 
-- extracted from zeit.cms
+- Beim Aktualisieren der gestrigen Hits wird jetzt nur noch gesperrt, wenn es
+  auch etwas zu ändern gibt. Das sollte die Performance deutlich erhöhen.
+
+- zeit.today aus dem Paket zeit.cms extrahiert.
+
