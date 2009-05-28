@@ -55,30 +55,28 @@ class UpdateLifetimecounters(object):
     TICKS = 0.025
 
     def __call__(self):
-        ticks = self.TICKS
-        if self.queue:
-            self.process_one()
-            if not self.queue:
-                ticks = None
-        else:
-            self.fill_queue()
+        self.fill_queue()
 
-        return ticks
+        if not self.queue:
+            return
+        put_back = self.process_one()
+        if put_back:
+            return 1
+        return self.TICKS
 
     def process_one(self):
         unique_id, count_date, count = self.queue.pull()
         __traceback_info__ = (unique_id,)
+        put_back = self._process(unique_id, count_date, count)
+        if put_back:
+            self.queue.put((unique_id, count_date, count))
+        return put_back
+
+    def _process(self, unique_id, count_date, count):
         content = zeit.cms.interfaces.ICMSContent(unique_id, None)
         if content is None:
             log.warning("Could not find %s" % unique_id)
-            return
-
-        lifetime = zeit.today.interfaces.ILifeTimeCounter(content)
-
-        if (lifetime.last_count is not None
-            and lifetime.last_count >= count_date):
-            # Already counted
-            return
+            return False
 
         lockable = zope.app.locking.interfaces.ILockable(content)
         try:
@@ -86,7 +84,9 @@ class UpdateLifetimecounters(object):
         except zope.app.locking.interfaces.LockingError:
             log.warning("Could not update %s because it is locked." %
                         unique_id)
-            return
+            return True
+
+        lifetime = zeit.today.interfaces.ILifeTimeCounter(content)
 
         try:
             if lifetime.first_count is None:
@@ -95,16 +95,23 @@ class UpdateLifetimecounters(object):
             else:
                 lifetime.total_hits += count
 
-            lifetime.last_count = count_date
+            if not lifetime.last_count or lifetime.last_count < count_date:
+                lifetime.last_count = count_date
         finally:
             lockable.unlock()
         log.debug("Updated %s (%s hits)" % (unique_id, lifetime.total_hits))
+        return False
 
     def fill_queue(self):
+        last_import = getattr(self.queue, 'last_import', None)
         for unique_id in self.storage:
             count_date = self.storage.get_count_date(unique_id)
+            if last_import is not None and last_import >= count_date:
+                break
             count = self.storage.get_count(unique_id)
             self.queue.put((unique_id, count_date, count))
+        else:
+            self.queue.last_import = count_date
 
     @zope.cachedescriptors.property.Lazy
     def storage(self):
