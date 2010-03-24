@@ -4,6 +4,8 @@ zeit.today changes
 1.20.1 (unreleased)
 -------------------
 
+- Using versions from the ZTK.
+
 - Benötigte Abhängigkeit zu setuptools hinzugefügt.
 
 
