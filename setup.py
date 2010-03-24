@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='zeit.today',
-    version='1.21dev',
+    version='1.20.1dev',
     author='gocept',
     author_email='mail@gocept.com',
     url='https://svn.gocept.com/repos/gocept-int/zeit.cms',
@@ -15,9 +15,10 @@ setup(
     license='gocept proprietary',
     namespace_packages = ['zeit'],
     install_requires=[
-        'lxml',
         'gocept.lxml',
         'gocept.runner',
+        'lxml',
+        'setuptools',
         'zc.queue',
         'zeit.cms>=1.19',
         'zope.annotation',
