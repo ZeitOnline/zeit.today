@@ -1,7 +1,7 @@
 zeit.today changes
 ==================
 
-1.20.1 (unreleased)
+1.20.1 (2010-03-31)
 -------------------
 
 - Using versions from the ZTK.
