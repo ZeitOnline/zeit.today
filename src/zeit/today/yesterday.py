@@ -12,6 +12,7 @@ import zeit.today.storage
 import zope.annotation.interfaces
 import zope.app.appsetup.product
 import zope.app.locking.interfaces
+import zope.cachedescriptors.property
 import zope.component
 import zope.interface
 
