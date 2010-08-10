@@ -38,3 +38,20 @@ class AccessCounter(object):
             today = 0
 
         return lifetime.total_hits + today
+
+
+class UniqueIdAccessCounter(object):
+
+    zope.interface.implements(zeit.cms.content.interfaces.IAccessCounter)
+    zope.component.adapts(basestring)
+
+    total_hits = None
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def hits(self):
+        storage = zope.component.getUtility(
+            zeit.today.interfaces.ICountStorage)
+        return storage.get_count(self.context)

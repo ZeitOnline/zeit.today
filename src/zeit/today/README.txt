@@ -86,6 +86,15 @@ The ``counter`` object implements the IAccessCounter interface:
 ...     zeit.cms.content.interfaces.IAccessCounter, counter)
 True
 
+Today's count can also be retrieved by adapting the UniqueId:
+
+>>> counter = zeit.cms.content.interfaces.IAccessCounter(
+...     'http://xml.zeit.de/index')
+>>> counter.hits
+7992
+>>> counter.total_hits is None
+True
+
 
 
 Edge cases

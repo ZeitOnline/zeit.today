@@ -2,6 +2,7 @@
 
   <utility factory=".storage.today_storage_factory" />
   <adapter factory=".accesscounter.AccessCounter" />
+  <adapter factory=".accesscounter.UniqueIdAccessCounter" />
 
   <utility factory=".yesterday.yesterday_storage_factory" name="yesterday"/>
   <adapter factory=".yesterday.LifeTimeCounter" />
