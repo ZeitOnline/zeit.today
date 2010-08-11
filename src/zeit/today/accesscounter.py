@@ -1,12 +1,11 @@
 # Copyright (c) 2008-2009 gocept gmbh & co. kg
 # See also LICENSE.txt
-# $Id$
 
+import urllib
+import zeit.cms.content.interfaces
+import zeit.cms.interfaces
 import zope.component
 import zope.interface
-
-import zeit.cms.interfaces
-import zeit.cms.content.interfaces
 
 
 class AccessCounter(object):
@@ -38,6 +37,13 @@ class AccessCounter(object):
             today = 0
 
         return lifetime.total_hits + today
+
+    @property
+    def detail_url(self):
+        assert self.context.uniqueId.startswith('http://xml.zeit.de/')
+        url = self.context.uniqueId.replace('http://xml.', 'www.', 1)
+        return 'http://ccreport.zeit.de/zeit_clickcounter/cc/clicks?%s' % (
+            urllib.urlencode(dict(url=url)))
 
 
 class UniqueIdAccessCounter(object):

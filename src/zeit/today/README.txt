@@ -80,11 +80,18 @@ and thus the adapter is not found.
 True
 
 
+The details can be loaded from an url:
+
+>>> print counter.detail_url
+http://ccreport.zeit.de/zeit_clickcounter/cc/clicks?url=www.zeit.de%2Findex
+
+
 The ``counter`` object implements the IAccessCounter interface:
 
 >>> zope.interface.verify.verifyObject(
 ...     zeit.cms.content.interfaces.IAccessCounter, counter)
 True
+
 
 Today's count can also be retrieved by adapting the UniqueId:
 
