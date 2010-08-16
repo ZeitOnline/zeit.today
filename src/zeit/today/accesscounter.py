@@ -40,10 +40,16 @@ class AccessCounter(object):
 
     @property
     def detail_url(self):
-        assert self.context.uniqueId.startswith('http://xml.zeit.de/')
-        url = self.context.uniqueId.replace('http://xml.', 'www.', 1)
-        return 'http://ccreport.zeit.de/zeit_clickcounter/cc/clicks?%s' % (
-            urllib.urlencode(dict(url=url)))
+        if self.context.uniqueId.startswith('http://xml.zeit.de/'):
+            url = self.context.uniqueId.replace('http://xml.', 'www.', 1)
+        elif self.context.uniqueId.startswith('http://video.zeit.de/'):
+            url = self.context.uniqueId.replace('http://video.zeit.de/',
+                                                'http://www.zeit.de/video/', 1)
+        else:
+            url = None
+        if url:
+            return 'http://ccreport.zeit.de/zeit_clickcounter/cc/clicks?%s' % (
+                urllib.urlencode(dict(url=url)))
 
 
 class UniqueIdAccessCounter(object):
