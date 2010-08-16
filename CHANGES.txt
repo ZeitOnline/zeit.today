@@ -1,7 +1,7 @@
 zeit.today changes
 ==================
 
-1.20.2 (unreleased)
+1.21.0 (2010-08-16)
 -------------------
 
 - Provide an adapter from UniqueId to IAccessCounter (#7860).
