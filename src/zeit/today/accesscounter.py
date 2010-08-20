@@ -48,6 +48,7 @@ class AccessCounter(object):
         else:
             url = None
         if url:
+            url = url.encode('utf8')
             return 'http://ccreport.zeit.de/zeit_clickcounter/cc/clicks?%s' % (
                 urllib.urlencode(dict(url=url)))
 

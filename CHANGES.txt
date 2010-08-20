@@ -4,7 +4,8 @@ zeit.today changes
 1.21.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fixed a bug in computing detail url for unique ids containing non us-ascii
+  characters (#7928).
 
 
 1.21.0 (2010-08-16)

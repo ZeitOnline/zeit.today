@@ -84,12 +84,9 @@ The details can be loaded from an url:
 
 >>> print counter.detail_url
 http://ccreport.zeit.de/zeit_clickcounter/cc/clicks?url=www.zeit.de%2Findex
->>> content.uniqueId = u'http://video.zeit.de/foo/bar'
+>>> content.uniqueId = u'http://video.zeit.de/f\xf6\xf6/b\xe4r'
 >>> print counter.detail_url
-http://ccreport.zeit.de/zeit_clickcounter/cc/clicks?url=http%3A%2F%2Fwww.zeit.de%2Fvideo%2Ffoo%2Fbar
-
-
-
+http://ccreport.zeit.de/zeit_clickcounter/cc/clicks?url=http%3A%2F%2Fwww.zeit.de%2Fvideo%2Ff%C3%B6%C3%B6%2Fb%C3%A4r
 
 
 The ``counter`` object implements the IAccessCounter interface:
