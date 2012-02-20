@@ -1,18 +1,12 @@
-# Copyright (c) 2007-2009 gocept gmbh & co. kg
+# Copyright (c) 2007-2012 gocept gmbh & co. kg
 # See also LICENSE.txt
-# $Id$
 
 import os
 import unittest
-
-from zope.testing import doctest
-
-import zope.app.testing.functional
-
 import zeit.cms.testing
 
 
-TodayLayer = zope.app.testing.functional.ZCMLLayer(
+TodayLayer = zeit.cms.testing.ZCMLLayer(
     os.path.join(os.path.dirname(__file__), 'ftesting.zcml'),
     __name__, 'TodayLayer', allow_teardown=True)
 
