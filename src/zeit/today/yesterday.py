@@ -2,6 +2,7 @@
 # See also LICENSE.txt
 """Aggregate figures from yesterday with the days before."""
 
+from zeit.cms.content.interfaces import WRITEABLE_LIVE
 import gocept.runner
 import logging
 import zc.queue
@@ -29,7 +30,6 @@ def yesterday_storage_factory():
     return zeit.today.storage.CountStorage(url_getter)
 
 
-
 class LifeTimeCounter(object):
 
     zope.interface.implements(zeit.today.interfaces.ILifeTimeCounter)
@@ -39,7 +39,7 @@ class LifeTimeCounter(object):
         zeit.today.interfaces.ILifeTimeCounter,
         zeit.today.interfaces.LIFETIME_DAV_NAMESPACE,
         ('total_hits', 'first_count', 'last_count'),
-        live=True)
+        writeable=WRITEABLE_LIVE)
 
     def __init__(self, context):
         self.context = context
