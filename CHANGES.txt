@@ -4,7 +4,7 @@ zeit.today changes
 1.21.2 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix compatibility with zeit.cms 2.0.
 
 
 1.21.1 (2010-08-20)
