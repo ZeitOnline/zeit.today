@@ -4,7 +4,8 @@ zeit.today changes
 2.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Don't try to update 'http://xml.zeit.de/', which is not actually a content
+  object (#12853).
 
 
 2.0 (2013-04-24)

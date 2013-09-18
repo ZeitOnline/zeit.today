@@ -111,7 +111,8 @@ repository (that is no error is raised):
 
 >>> write_yesterday('2007-01-03', [
 ...     ('/online/2007/01/foo-bar-baz', 6),
-...     ('//index', 392)])
+...     ('//index', 392),
+...     ('/', 13)])
 >>> while zeit.today.yesterday.update_lifetime_counters():
 ...     pass
 

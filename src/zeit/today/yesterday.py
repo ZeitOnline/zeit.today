@@ -79,7 +79,11 @@ class UpdateLifetimecounters(object):
             log.warning("Could not find %s" % unique_id)
             return False
 
-        lockable = zope.app.locking.interfaces.ILockable(content)
+        try:
+            lockable = zope.app.locking.interfaces.ILockable(content)
+        except TypeError:
+            log.warning("Invalid uniqueId %s" % unique_id)
+            return False
         try:
             lockable.lock(timeout=60)
         except zope.app.locking.interfaces.LockingError:
