@@ -1,8 +1,8 @@
 zeit.today changes
 ==================
 
-2.1 (unreleased)
-----------------
+2.0.1 (2013-09-24)
+------------------
 
 - Don't try to update 'http://xml.zeit.de/', which is not actually a content
   object (#12853).
