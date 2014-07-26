@@ -9,11 +9,11 @@ setup(
     description="""\
 """,
     packages=find_packages('src'),
-    package_dir = {'': 'src'},
-    include_package_data = True,
+    package_dir={'': 'src'},
+    include_package_data=True,
     zip_safe=False,
     license='gocept proprietary',
-    namespace_packages = ['zeit'],
+    namespace_packages=['zeit'],
     install_requires=[
         'gocept.lxml',
         'gocept.runner',
@@ -30,8 +30,8 @@ setup(
         'zope.schema',
         'zope.testing',
     ],
-    entry_points = """
+    entry_points="""
         [console_scripts]
-        run-lifetime-hits-importer = zeit.today.yesterday:main
+        run-lifetime-hits-importer=zeit.today.yesterday:main
         """
 )

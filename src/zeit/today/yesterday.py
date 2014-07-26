@@ -122,6 +122,7 @@ class UpdateLifetimecounters(object):
     def storage(self):
         return zope.component.getUtility(zeit.today.interfaces.ICountStorage,
                                          name='yesterday')
+
     @zope.cachedescriptors.property.Lazy
     def repository(self):
         return zope.component.getUtility(

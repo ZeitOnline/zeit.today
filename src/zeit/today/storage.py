@@ -25,7 +25,7 @@ class CountStorage(object):
 
     zope.interface.implements(zeit.today.interfaces.ICountStorage)
 
-    REFRESH_INTERVAL = 5*60  # 5 minutes
+    REFRESH_INTERVAL = 5 * 60  # 5 minutes
 
     def __init__(self, url_getter):
         self.url = url_getter
