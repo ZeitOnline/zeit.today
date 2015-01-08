@@ -1,7 +1,3 @@
-# Copyright (c) 2008-2009 gocept gmbh & co. kg
-# See also LICENSE.txt
-"""Aggregate figures from yesterday with the days before."""
-
 from zeit.cms.content.interfaces import WRITEABLE_LIVE
 import gocept.runner
 import logging
@@ -52,6 +48,7 @@ def webdav_properties(context):
 
 
 class UpdateLifetimecounters(object):
+    """Aggregates figures from yesterday with the days before."""
 
     TICKS = 0.025
 

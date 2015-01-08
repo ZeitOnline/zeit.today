@@ -1,6 +1,3 @@
-# Copyright (c) 2007-2009 gocept gmbh & co. kg
-# See also LICENSE.txt
-"""Hit counting."""
 
 import zope.interface
 import zope.schema
