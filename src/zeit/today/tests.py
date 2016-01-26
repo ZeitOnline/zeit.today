@@ -2,7 +2,8 @@ import pkg_resources
 import zeit.cms.testing
 
 
-TodayLayer = zeit.cms.testing.ZCMLLayer('ftesting.zcml')
+TodayLayer = zeit.cms.testing.ZCMLLayer(
+    'ftesting.zcml', product_config=zeit.cms.testing.cms_product_config)
 
 today_xml_url = 'file://%s' % pkg_resources.resource_filename(
     __name__, 'today.xml')
