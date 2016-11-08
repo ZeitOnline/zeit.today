@@ -1,17 +1,13 @@
-
 import datetime
+import gocept.lxml.objectify
 import logging
-import urllib2
-import urlparse
+import lxml.etree
 import threading
 import time
-
-import lxml.etree
-import gocept.lxml.objectify
-
-import zope.interface
-
+import urllib2
+import urlparse
 import zeit.today.interfaces
+import zope.interface
 
 
 logger = logging.getLogger(__name__)
@@ -47,8 +43,8 @@ class CountStorage(object):
 
     def _refresh(self):
         now = time.time()
-        if (self.last_refresh
-            and self.last_refresh + self.REFRESH_INTERVAL > now):
+        if (self.last_refresh and
+                self.last_refresh + self.REFRESH_INTERVAL > now):
             return
 
         locked = self.update_lock.acquire(False)
