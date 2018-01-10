@@ -20,7 +20,7 @@ setup(
         'lxml',
         'setuptools',
         'zc.queue',
-        'zeit.cms>=2.0',
+        'zeit.cms>=3.2.0.dev0',
         'zope.annotation',
         'zope.app.appsetup',
         'zope.app.locking',
