@@ -34,15 +34,15 @@ loop)[#log-handler]_:
 Iteration 1 ticks 0.025
 new transaction
 Updating click counter from file:///...
-Getting resource u'http://xml.zeit.de/online/2007/01/Ford-Beerdigung'
+Getting resource http://xml.zeit.de/online/2007/01/Ford-Beerdigung
 Updated http://xml.zeit.de/online/2007/01/Ford-Beerdigung (4223 hits)
 Iteration 2 ticks 0.025
 Updating click counter from file:///...
-Getting resource u'http://xml.zeit.de/online/2007/01/Somalia'
+Getting resource http://xml.zeit.de/online/2007/01/Somalia
 Updated http://xml.zeit.de/online/2007/01/Somalia (254 hits)
 Iteration 3 ticks 0.025
 Updating click counter from file:///...
-Getting resource u'http://xml.zeit.de/online/2007/01/eta-zapatero'
+Getting resource http://xml.zeit.de/online/2007/01/eta-zapatero
 Updated http://xml.zeit.de/online/2007/01/eta-zapatero (63 hits)
 Iteration 4 ticks None
 Updating click counter from file:///...
