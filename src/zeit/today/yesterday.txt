@@ -32,17 +32,13 @@ loop)[#log-handler]_:
 ...     if ticks is None:
 ...         break
 Iteration 1 ticks 0.025
-new transaction
 Updating click counter from file:///...
-Getting resource http://xml.zeit.de/online/2007/01/Ford-Beerdigung
 Updated http://xml.zeit.de/online/2007/01/Ford-Beerdigung (4223 hits)
 Iteration 2 ticks 0.025
 Updating click counter from file:///...
-Getting resource http://xml.zeit.de/online/2007/01/Somalia
 Updated http://xml.zeit.de/online/2007/01/Somalia (254 hits)
 Iteration 3 ticks 0.025
 Updating click counter from file:///...
-Getting resource http://xml.zeit.de/online/2007/01/eta-zapatero
 Updated http://xml.zeit.de/online/2007/01/eta-zapatero (63 hits)
 Iteration 4 ticks None
 Updating click counter from file:///...
@@ -184,7 +180,7 @@ Clean up:
 Restore old log handler:
 
 >>> logging.root.removeHandler(log_handler)
->>> logging.root.setLevel(old_log_level)
+>>> logger.setLevel(old_log_level)
 
 
 .. [#yesterday-helper]
@@ -251,7 +247,8 @@ Restore old log handler:
     >>> log = StringIO.StringIO()
     >>> log_handler = logging.StreamHandler(log)
     >>> logging.root.addHandler(log_handler)
-    >>> old_log_level = logging.root.level
-    >>> logging.root.setLevel(logging.DEBUG)
+    >>> logger = logging.getLogger('zeit.today')
+    >>> old_log_level = logger.level
+    >>> logger.setLevel(logging.DEBUG)
 
 
