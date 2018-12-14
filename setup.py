@@ -18,6 +18,7 @@ setup(
         'gocept.lxml',
         'gocept.runner',
         'lxml',
+        'requests',
         'setuptools',
         'zc.queue',
         'zeit.cms>=3.2.0.dev0',
@@ -33,5 +34,6 @@ setup(
     entry_points="""
         [console_scripts]
         run-lifetime-hits-importer=zeit.today.yesterday:main
+        clickcounter-to-dav=zeit.today.clickimport:import_to_dav
         """
 )
