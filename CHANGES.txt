@@ -1,7 +1,7 @@
 zeit.today changes
 ==================
 
-2.0.2 (unreleased)
+2.1.0 (2018-12-14)
 ------------------
 
 - BUG-1020: Add script to import clickcounter data into DAV
