@@ -21,7 +21,7 @@ setup(
         'requests',
         'setuptools',
         'zc.queue',
-        'zeit.cms>=3.2.0.dev0',
+        'vivi.core',
         'zope.annotation',
         'zope.app.appsetup',
         'zope.app.locking',
