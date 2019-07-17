@@ -1,13 +1,84 @@
 Livetime values
 ===============
 
+Setup
+-----
+
+Create a helper function to write the xml file:
+
+>>> import tempfile
+>>> handle, yesterday_file = tempfile.mkstemp()
+>>> def write_yesterday(date, data):
+...     f = open(yesterday_file, 'w')
+...     print >>f, '<?xml version="1.0"?><articles>',
+...     rank = 0
+...     for path, hits in sorted(data, key=lambda x: x[1]):
+...         rank += 1
+...         print >>f, ('<article date="%s" rang="%s" url="%s" '
+...                     'counter="%s"/>') % (date, rank, path, hits),
+...     print >>f, '</articles>'
+...     f.close()
+
+Set the xml url to the file which will be written by the helper function:
+
+>>> import zope.app.appsetup.product
+>>> cfg = zope.app.appsetup.product.getProductConfiguration('zeit.today')
+>>> cfg['yesterday-xml-url'] = 'file://%s' % yesterday_file
+
+Add a helper to print the lifetime properties:
+
+>>> def print_lifetime_props(unique_id):
+...     properties = connector[unique_id].properties
+...     for (name, namespace), value in sorted(properties.items()):
+...         if namespace == zeit.today.interfaces.LIFETIME_DAV_NAMESPACE:
+...             print name, '=', value
+
+Lower the refresh interval so we need not wait 5 minutes :)
+
+>>> import zeit.today.storage
+>>> old_interval  = zeit.today.storage.CountStorage.REFRESH_INTERVAL
+>>> zeit.today.storage.CountStorage.REFRESH_INTERVAL = 0
+
+Functional test setup:
+
+>>> import zope.component.hooks
+>>> old_site = zope.component.hooks.getSite()
+>>> zope.component.hooks.setSite(getRootFolder())
+
+>>> import zope.publisher.browser
+>>> request = zope.publisher.browser.TestRequest()
+>>> import zope.security.testing
+>>> principal = zope.security.testing.Principal(u'zope.user')
+>>> request.setPrincipal(principal)
+>>> import zope.security.management
+>>> zope.security.management.newInteraction(request)
+
+>>> import zope.component
+>>> import zeit.connector.interfaces
+>>> connector = zope.component.getUtility(
+...     zeit.connector.interfaces.IConnector)
+
+Register a log handler:
+
+>>> import logging
+>>> import StringIO
+>>> log = StringIO.StringIO()
+>>> log_handler = logging.StreamHandler(log)
+>>> logging.root.addHandler(log_handler)
+>>> logger = logging.getLogger('zeit.today')
+>>> old_log_level = logger.level
+>>> logger.setLevel(logging.DEBUG)
+
+
+
+
 The hit counting is supplemented by a lifetime counter. At least once a day the
 hit counters from the day before are retrieved and summed up with the data of
 the days before.
 
 Each day we'll get a ``yesterday.xml``. The date the file relates to is noted
 in the file so we rely on that. Create a file for
-2007-01-01[#yesterday-helper]_:
+2007-01-01:
 
 >>> write_yesterday('2007-01-01', [
 ...     ('/online/2007/01/Somalia', 254),
@@ -173,7 +244,7 @@ Clean up:
 
 >>> import os
 >>> os.remove(yesterday_file)
->>> zope.app.component.hooks.setSite(old_site)
+>>> zope.component.hooks.setSite(old_site)
 >>> zeit.today.storage.CountStorage.REFRESH_INTERVAL = old_interval
 >>> zope.security.management.endInteraction()
 
@@ -181,74 +252,3 @@ Restore old log handler:
 
 >>> logging.root.removeHandler(log_handler)
 >>> logger.setLevel(old_log_level)
-
-
-.. [#yesterday-helper]
-    
-    Create a helper function to write the xml file:
-
-    >>> import tempfile
-    >>> handle, yesterday_file = tempfile.mkstemp()
-    >>> def write_yesterday(date, data):
-    ...     f = open(yesterday_file, 'w')
-    ...     print >>f, '<?xml version="1.0"?><articles>',
-    ...     rank = 0
-    ...     for path, hits in sorted(data, key=lambda x: x[1]):
-    ...         rank += 1
-    ...         print >>f, ('<article date="%s" rang="%s" url="%s" '
-    ...                     'counter="%s"/>') % (date, rank, path, hits),
-    ...     print >>f, '</articles>'
-    ...     f.close()
-
-    Set the xml url to the file which will be written by the helper function:
-
-    >>> import zope.app.appsetup.product
-    >>> cfg = zope.app.appsetup.product.getProductConfiguration('zeit.today')
-    >>> cfg['yesterday-xml-url'] = 'file://%s' % yesterday_file
-
-    Add a helper to print the lifetime properties:
-
-    >>> def print_lifetime_props(unique_id):
-    ...     properties = connector[unique_id].properties
-    ...     for (name, namespace), value in sorted(properties.items()):
-    ...         if namespace == zeit.today.interfaces.LIFETIME_DAV_NAMESPACE:
-    ...             print name, '=', value
-
-    Lower the refresh interval so we need not wait 5 minutes :)
-    
-    >>> import zeit.today.storage
-    >>> old_interval  = zeit.today.storage.CountStorage.REFRESH_INTERVAL
-    >>> zeit.today.storage.CountStorage.REFRESH_INTERVAL = 0
-
-
-.. [#functional]
-
-    >>> import zope.app.component.hooks
-    >>> old_site = zope.app.component.hooks.getSite()
-    >>> zope.app.component.hooks.setSite(getRootFolder())
-
-    >>> import zope.publisher.browser
-    >>> request = zope.publisher.browser.TestRequest()
-    >>> import zope.security.testing
-    >>> principal = zope.security.testing.Principal(u'zope.user')
-    >>> request.setPrincipal(principal)
-    >>> import zope.security.management
-    >>> zope.security.management.newInteraction(request)
-
-    >>> import zope.component
-    >>> import zeit.connector.interfaces
-    >>> connector = zope.component.getUtility(
-    ...     zeit.connector.interfaces.IConnector)
-
-.. [#log-handler] Register a log handler
-
-    >>> import logging
-    >>> import StringIO
-    >>> log = StringIO.StringIO()
-    >>> log_handler = logging.StreamHandler(log)
-    >>> logging.root.addHandler(log_handler)
-    >>> logger = logging.getLogger('zeit.today')
-    >>> old_log_level = logger.level
-    >>> logger.setLevel(logging.DEBUG)
-
-
