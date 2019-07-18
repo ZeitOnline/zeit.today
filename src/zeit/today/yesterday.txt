@@ -89,7 +89,7 @@ in the file so we rely on that. Create a file for
 Update the counters now. Note that we're doing a while loop as
 the function returns None when it has completed one update and something
 evaluating to True otherwise (Actualy it returns a sleep time for the main
-loop)[#log-handler]_:
+loop):
 
 >>> run_count = 0
 >>> import zeit.today.yesterday
