@@ -8,14 +8,14 @@ product_config = """\
 </product-config>
 """.format(base=pkg_resources.resource_filename(__name__, '.'))
 
-TodayLayer = zeit.cms.testing.ZCMLLayer('ftesting.zcml', product_config=(
-    product_config +
-    zeit.cms.testing.cms_product_config))
+CONFIG_LAYER = zeit.cms.testing.ProductConfigLayer(product_config, bases=(
+    zeit.cms.testing.CONFIG_LAYER,))
+ZCML_LAYER = zeit.cms.testing.ZCMLLayer(bases=(CONFIG_LAYER,))
+ZOPE_LAYER = zeit.cms.testing.ZopeLayer(bases=(ZCML_LAYER,))
 
 
 def test_suite():
     return zeit.cms.testing.FunctionalDocFileSuite(
         'README.txt',
         'yesterday.txt',
-        layer=TodayLayer
-    )
+        layer=ZOPE_LAYER)
