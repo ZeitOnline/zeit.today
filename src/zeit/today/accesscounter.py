@@ -1,4 +1,5 @@
-import urllib
+import six
+import six.moves.urllib.parse
 import zeit.cms.content.interfaces
 import zeit.cms.interfaces
 import zope.component
@@ -47,13 +48,13 @@ class AccessCounter(object):
         if url:
             url = url.encode('utf8')
             return 'http://ccreport.zeit.de/zeit_clickcounter/cc/clicks?%s' % (
-                urllib.urlencode(dict(url=url)))
+                six.moves.urllib.parse.urlencode(dict(url=url)))
 
 
 class UniqueIdAccessCounter(object):
 
     zope.interface.implements(zeit.cms.content.interfaces.IAccessCounter)
-    zope.component.adapts(basestring)
+    zope.component.adapts(six.string_types[0])
 
     total_hits = None
 

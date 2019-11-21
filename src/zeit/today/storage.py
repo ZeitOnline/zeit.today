@@ -2,10 +2,10 @@ import datetime
 import gocept.lxml.objectify
 import logging
 import lxml.etree
+import six.moves.urllib.parse
+import six.moves.urllib.request
 import threading
 import time
-import urllib2
-import urlparse
 import zeit.today.interfaces
 import zope.interface
 
@@ -57,7 +57,7 @@ class CountStorage(object):
         try:
             url = self.url()
             logger.info("Updating click counter from %s" % url)
-            request = urllib2.urlopen(url)
+            request = six.moves.urllib.request.urlopen(url)
             try:
                 xml = gocept.lxml.objectify.fromfile(request)
             except lxml.etree.XMLSyntaxError:
@@ -88,7 +88,7 @@ class CountStorage(object):
     def _make_unique_id(path):
         while '//' in path:
             path = path.replace('//', '/')
-        return urlparse.urljoin('http://xml.zeit.de/', path)
+        return six.moves.urllib.parse.urljoin('http://xml.zeit.de/', path)
 
 
 @zope.interface.implementer(zeit.today.interfaces.ICountStorage)
