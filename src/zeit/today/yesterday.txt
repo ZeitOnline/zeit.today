@@ -10,13 +10,13 @@ Create a helper function to write the xml file:
 >>> handle, yesterday_file = tempfile.mkstemp()
 >>> def write_yesterday(date, data):
 ...     f = open(yesterday_file, 'w')
-...     print >>f, '<?xml version="1.0"?><articles>',
+...     _ = f.write('<?xml version="1.0"?><articles>\n')
 ...     rank = 0
 ...     for path, hits in sorted(data, key=lambda x: x[1]):
 ...         rank += 1
-...         print >>f, ('<article date="%s" rang="%s" url="%s" '
-...                     'counter="%s"/>') % (date, rank, path, hits),
-...     print >>f, '</articles>'
+...         _ = f.write('<article date="%s" rang="%s" url="%s" '
+...                 'counter="%s"/>\n' % (date, rank, path, hits))
+...     _ = f.write('</articles>\n')
 ...     f.close()
 
 Set the xml url to the file which will be written by the helper function:
@@ -31,7 +31,7 @@ Add a helper to print the lifetime properties:
 ...     properties = connector[unique_id].properties
 ...     for (name, namespace), value in sorted(properties.items()):
 ...         if namespace == zeit.today.interfaces.LIFETIME_DAV_NAMESPACE:
-...             print name, '=', value
+...             print('%s = %s' % (name, value))
 
 Lower the refresh interval so we need not wait 5 minutes :)
 
@@ -61,8 +61,8 @@ Functional test setup:
 Register a log handler:
 
 >>> import logging
->>> import StringIO
->>> log = StringIO.StringIO()
+>>> from six import StringIO
+>>> log = StringIO()
 >>> log_handler = logging.StreamHandler(log)
 >>> logging.root.addHandler(log_handler)
 >>> logger = logging.getLogger('zeit.today')
@@ -96,10 +96,10 @@ loop):
 >>> while True:
 ...     ticks = zeit.today.yesterday.update_lifetime_counters()
 ...     run_count += 1
-...     print "Iteration", run_count, "ticks", ticks
-...     print log.getvalue(),
-...     log.seek(0)
-...     log.truncate()
+...     print("Iteration %s ticks %s" % (run_count, ticks))
+...     print(log.getvalue())
+...     _ = log.seek(0)
+...     _ = log.truncate()
 ...     if ticks is None:
 ...         break
 Iteration 1 ticks 0.025

@@ -6,10 +6,9 @@ import zope.component
 import zope.interface
 
 
+@zope.component.adapter(zeit.cms.interfaces.ICMSContent)
+@zope.interface.implementer(zeit.cms.content.interfaces.IAccessCounter)
 class AccessCounter(object):
-
-    zope.interface.implements(zeit.cms.content.interfaces.IAccessCounter)
-    zope.component.adapts(zeit.cms.interfaces.ICMSContent)
 
     def __init__(self, context):
         self.context = context
@@ -51,10 +50,9 @@ class AccessCounter(object):
                 six.moves.urllib.parse.urlencode(dict(url=url)))
 
 
+@zope.component.adapter(six.string_types[0])
+@zope.interface.implementer(zeit.cms.content.interfaces.IAccessCounter)
 class UniqueIdAccessCounter(object):
-
-    zope.interface.implements(zeit.cms.content.interfaces.IAccessCounter)
-    zope.component.adapts(six.string_types[0])
 
     total_hits = None
 

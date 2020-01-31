@@ -20,6 +20,7 @@ setup(
         'lxml',
         'requests',
         'setuptools',
+        'six',
         'zc.queue',
         'vivi.core',
         'zope.annotation',

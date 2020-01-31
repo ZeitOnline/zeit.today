@@ -82,10 +82,10 @@ True
 
 The details can be loaded from an url:
 
->>> print counter.detail_url
+>>> print(counter.detail_url)
 http://ccreport.zeit.de/zeit_clickcounter/cc/clicks?url=www.zeit.de%2Findex
 >>> content.uniqueId = u'http://video.zeit.de/f\xf6\xf6/b\xe4r'
->>> print counter.detail_url
+>>> print(counter.detail_url)
 http://ccreport.zeit.de/zeit_clickcounter/cc/clicks?url=http%3A%2F%2Fwww.zeit.de%2Fvideo%2Ff%C3%B6%C3%B6%2Fb%C3%A4r
 
 
@@ -134,7 +134,7 @@ No article nodes
 The today.xml file does not contain any <article> nodes. This happens after
 midnight when the counters have been reset but nothin has been counted so far.
 
->>> open(name, 'w').write("<?xml version='1.0'?>\n<articles/>")
+>>> _ = open(name, 'w').write("<?xml version='1.0'?>\n<articles/>")
 >>> counter = zeit.today.storage.CountStorage(url_get)
 >>> counter.get_count('foo') is None
 True
@@ -146,7 +146,7 @@ Duplicate object references
 It happens that an object is referenced multiple times in the today.xml (after
 normalisation):
 
->>> open(name, 'w').write("""\
+>>> _ = open(name, 'w').write("""\
 ... <?xml version='1.0'?>
 ... <articles>
 ...     <article date="2007-06-01" rang="1" counter="25" url="/index"/>

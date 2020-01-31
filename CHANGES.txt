@@ -4,7 +4,7 @@ zeit.today changes
 2.1.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- ZON-5691: Make py3 syntax compatible
 
 
 2.1.1 (2019-06-05)

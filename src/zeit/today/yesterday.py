@@ -26,10 +26,9 @@ def yesterday_storage_factory():
     return zeit.today.storage.CountStorage(url_getter)
 
 
+@zope.component.adapter(zeit.cms.interfaces.ICMSContent)
+@zope.interface.implementer(zeit.today.interfaces.ILifeTimeCounter)
 class LifeTimeCounter(object):
-
-    zope.interface.implements(zeit.today.interfaces.ILifeTimeCounter)
-    zope.component.adapts(zeit.cms.interfaces.ICMSContent)
 
     zeit.cms.content.dav.mapProperties(
         zeit.today.interfaces.ILifeTimeCounter,

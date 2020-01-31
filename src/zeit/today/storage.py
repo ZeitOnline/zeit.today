@@ -13,10 +13,9 @@ import zope.interface
 logger = logging.getLogger(__name__)
 
 
+@zope.interface.implementer(zeit.today.interfaces.ICountStorage)
 class CountStorage(object):
     """Central access to click counting."""
-
-    zope.interface.implements(zeit.today.interfaces.ICountStorage)
 
     REFRESH_INTERVAL = 5 * 60  # 5 minutes
 
