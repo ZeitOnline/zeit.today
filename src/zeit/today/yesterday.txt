@@ -104,13 +104,13 @@ loop):
 ...         break
 Iteration 1 ticks 0.025
 Updating click counter from file:///...
-Updated http://xml.zeit.de/online/2007/01/Ford-Beerdigung (4223 hits)
+Updated http://xml.zeit.de/online/2007/01/eta-zapatero (63 hits)
 Iteration 2 ticks 0.025
 Updating click counter from file:///...
 Updated http://xml.zeit.de/online/2007/01/Somalia (254 hits)
 Iteration 3 ticks 0.025
 Updating click counter from file:///...
-Updated http://xml.zeit.de/online/2007/01/eta-zapatero (63 hits)
+Updated http://xml.zeit.de/online/2007/01/Ford-Beerdigung (4223 hits)
 Iteration 4 ticks None
 Updating click counter from file:///...
 

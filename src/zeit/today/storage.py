@@ -1,3 +1,4 @@
+import collections
 import datetime
 import gocept.lxml.objectify
 import logging
@@ -21,8 +22,8 @@ class CountStorage(object):
 
     def __init__(self, url_getter):
         self.url = url_getter
-        self.id_to_count = {}
-        self.id_to_date = {}
+        self.id_to_count = collections.OrderedDict()
+        self.id_to_date = collections.OrderedDict()
         self.update_lock = threading.Lock()
         self.last_refresh = None
 
@@ -66,8 +67,8 @@ class CountStorage(object):
                              exc_info=True)
             else:
                 if xml.find('article') is not None:
-                    id_to_count = {}
-                    id_to_date = {}
+                    id_to_count = collections.OrderedDict()
+                    id_to_date = collections.OrderedDict()
                     for item in xml['article']:
                         url = self._make_unique_id(item.get('url'))
                         count = int(item.get('counter'))
